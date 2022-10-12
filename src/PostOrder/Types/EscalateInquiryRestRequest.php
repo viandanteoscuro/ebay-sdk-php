@@ -14,6 +14,7 @@ namespace DTS\eBaySDK\PostOrder\Types;
 /**
  *
  * @property string $inquiryId
+ * @property string $escalateInquiryReason
  */
 class EscalateInquiryRestRequest extends \DTS\eBaySDK\PostOrder\Types\EscalateInquiryRequest
 {
