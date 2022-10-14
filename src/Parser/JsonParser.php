@@ -1,4 +1,5 @@
 <?php
+
 namespace DTS\eBaySDK\Parser;
 
 class JsonParser
@@ -9,7 +10,8 @@ class JsonParser
      */
     public static function parseAndAssignProperties($object, $json)
     {
-        $properties = $json !== '' ? json_decode($json, true) : [];
+        $properties = $json !== '' ? (is_null($json) ? [] : json_decode($json, true)) : [];
+
         self::assignProperties($object, $properties);
     }
 
