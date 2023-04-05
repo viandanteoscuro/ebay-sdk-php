@@ -157,7 +157,7 @@ abstract class BaseRestService
      *
      * @return \GuzzleHttp\Promise\PromiseInterface A promise that will be resolved with an object created from the JSON response.
      */
-    protected function callOperationAsync($name, \DTS\eBaySDK\Types\BaseType $request = null)
+    protected function callOperationAsync($name, \DTS\eBaySDK\Types\BaseType $request = null, $extraHeaders = [])
     {
         $operation = static::$operations[$name];
 
@@ -180,6 +180,12 @@ abstract class BaseRestService
         $method = $operation['method'];
         $body = $this->buildRequestBody($requestValues);
         $headers = $this->buildRequestHeaders($body);
+
+        if (!empty($extraHeaders)) {
+            foreach ($extraHeaders as $header => $value) {
+                $headers[$header] = $value;
+            }
+        }
         $this->headers = $headers;
         $responseClass = $operation['responseClass'];
         $debug = $this->getConfig('debug');
