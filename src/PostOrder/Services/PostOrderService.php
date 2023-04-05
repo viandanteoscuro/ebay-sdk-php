@@ -979,18 +979,18 @@ class PostOrderService extends \DTS\eBaySDK\PostOrder\Services\PostOrderBaseServ
      * @param \DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request
      * @return \DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestResponse
      */
-    public function submitCancellationRequest(\DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request)
+    public function submitCancellationRequest(\DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request, array $digestHeaders = [])
     {
-        return $this->submitCancellationRequestAsync($request)->wait();
+        return $this->submitCancellationRequestAsync($request, $digestHeaders)->wait();
     }
 
     /**
      * @param \DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function submitCancellationRequestAsync(\DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request)
+    public function submitCancellationRequestAsync(\DTS\eBaySDK\PostOrder\Types\SubmitCancellationRequestRestRequest $request, array $digestHeaders = [])
     {
-        return $this->callOperationAsync('SubmitCancellationRequest', $request);
+        return $this->callOperationAsync('SubmitCancellationRequest', $request, $digestHeaders);
     }
 
     /**
