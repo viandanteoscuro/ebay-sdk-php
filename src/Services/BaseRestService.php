@@ -1,4 +1,5 @@
 <?php
+
 namespace DTS\eBaySDK\Services;
 
 use DTS\eBaySDK\Parser\JsonParser;
@@ -44,6 +45,12 @@ abstract class BaseRestService
     private $config;
 
     /**
+     * 
+     * @var array
+     */
+    private $headers;
+
+    /**
      * @param array $config Configuration option values.
      */
     public function __construct(array $config)
@@ -51,6 +58,25 @@ abstract class BaseRestService
         $this->resolver = new ConfigurationResolver(static::getConfigDefinitions());
         $this->uriResolver = new UriResolver();
         $this->config = $this->resolver->resolve($config);
+    }
+
+    /**
+     * 
+     * @return array 
+     */
+    public function getCurrentRestHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * 
+     * @param array $headers 
+     * @return void 
+     */
+    public function setCurrentRestHeaders(array $headers)
+    {
+        $this->headers = $headers;
     }
 
     /**
@@ -154,16 +180,17 @@ abstract class BaseRestService
         $method = $operation['method'];
         $body = $this->buildRequestBody($requestValues);
         $headers = $this->buildRequestHeaders($body);
+        $this->headers = $headers;
         $responseClass = $operation['responseClass'];
         $debug = $this->getConfig('debug');
         $httpHandler = $this->getConfig('httpHandler');
         $httpOptions = $this->getConfig('httpOptions');
 
         if ($debug !== false) {
-            $this->debugRequest($url, $headers, $body);
+            $this->debugRequest($url, $this->headers, $body);
         }
 
-        $request = new Request($method, $url, $headers, $body);
+        $request = new Request($method, $url, $this->headers, $body);
 
         return $httpHandler($request, $httpOptions)->then(
             function (ResponseInterface $res) use ($debug, $responseClass) {
@@ -252,13 +279,13 @@ abstract class BaseRestService
      * @param string $url API endpoint.
      * @param array $headers Associative array of HTTP headers.
      * @param string $body The JSON body of the request.
-      */
+     */
     private function debugRequest($url, array $headers, $body)
     {
-        $str = $url.PHP_EOL;
+        $str = $url . PHP_EOL;
 
         $str .= array_reduce(array_keys($headers), function ($str, $key) use ($headers) {
-            $str .= $key.': '.$headers[$key].PHP_EOL;
+            $str .= $key . ': ' . $headers[$key] . PHP_EOL;
             return $str;
         }, '');
 
@@ -271,7 +298,7 @@ abstract class BaseRestService
      * Sends a debug string of the response details.
      *
      * @param string $body The JSON body of the response.
-      */
+     */
     private function debugResponse($body)
     {
         $this->debug($body);
