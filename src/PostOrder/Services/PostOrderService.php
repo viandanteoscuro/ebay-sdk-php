@@ -1231,18 +1231,18 @@ class PostOrderService extends \DTS\eBaySDK\PostOrder\Services\PostOrderBaseServ
      * @param \DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request
      * @return \DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestResponse
      */
-    public function issueInquiryRefund(\DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request)
+    public function issueInquiryRefund(\DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request, array $digestHeaders = [])
     {
-        return $this->issueInquiryRefundAsync($request)->wait();
+        return $this->issueInquiryRefundAsync($request, $digestHeaders)->wait();
     }
 
     /**
      * @param \DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function issueInquiryRefundAsync(\DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request)
+    public function issueInquiryRefundAsync(\DTS\eBaySDK\PostOrder\Types\IssueInquiryRefundRestRequest $request, array $digestHeaders = [])
     {
-        return $this->callOperationAsync('IssueInquiryRefund', $request);
+        return $this->callOperationAsync('IssueInquiryRefund', $request, $digestHeaders);
     }
 
     /**
@@ -1751,18 +1751,18 @@ class PostOrderService extends \DTS\eBaySDK\PostOrder\Services\PostOrderBaseServ
      * @param \DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request
      * @return \DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestResponse
      */
-    public function processReturnRequest(\DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request)
+    public function processReturnRequest(\DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request, array $digestHeaders = [])
     {
-        return $this->processReturnRequestAsync($request)->wait();
+        return $this->processReturnRequestAsync($request, $digestHeaders)->wait();
     }
 
     /**
      * @param \DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function processReturnRequestAsync(\DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request)
+    public function processReturnRequestAsync(\DTS\eBaySDK\PostOrder\Types\ProcessReturnRequestRestRequest $request, array $digestHeaders = [])
     {
-        return $this->callOperationAsync('ProcessReturnRequest', $request);
+        return $this->callOperationAsync('ProcessReturnRequest', $request, $digestHeaders);
     }
 
     /**
