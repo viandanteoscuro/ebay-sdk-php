@@ -202,9 +202,9 @@ abstract class BaseRestService
             function (ResponseInterface $res) use ($debug, $responseClass) {
                 $json = $res->getBody()->getContents();
 
-                if ($debug !== false) {
-                    $this->debugResponse($json);
-                }
+
+                $this->debugResponse($json);
+
 
                 $response =  new $responseClass(
                     [],
