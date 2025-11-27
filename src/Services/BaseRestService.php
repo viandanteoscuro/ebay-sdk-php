@@ -192,9 +192,9 @@ abstract class BaseRestService
         $httpHandler = $this->getConfig('httpHandler');
         $httpOptions = $this->getConfig('httpOptions');
 
-        if ($debug !== false) {
-            $this->debugRequest($url, $this->headers, $body);
-        }
+        // if ($debug !== false) {
+        //     $this->debugRequest($url, $this->headers, $body);
+        // }
 
         $request = new Request($method, $url, $this->headers, $body);
 
@@ -202,9 +202,9 @@ abstract class BaseRestService
             function (ResponseInterface $res) use ($debug, $responseClass) {
                 $json = $res->getBody()->getContents();
 
-
-                $this->debugResponse($json);
-
+                // if ($debug !== false) {
+                //     $this->debugResponse($json);
+                // }
 
                 $response =  new $responseClass(
                     [],
